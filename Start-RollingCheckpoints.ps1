@@ -39,6 +39,8 @@ $KeptCheckpoints = 4
 $VMNames = Get-VM -Name $VMs | Select-Object name | foreach {$_.name}
     
 #Finds Selected VMs (All by default), creates checkpoints for those VMs with the name "Auto Checkpoint" followed by the date (in a sortable format).
+#If you want to only make checkpoints of running VMs, uncomment the next line and delete the current line
+#Get-VM $VMs | Where-Object {$_.State -eq 'Running'} | Checkpoint-VM -SnapshotName "Auto Checkpoint $((Get-Date -Format s))"
 Get-VM $VMs | Checkpoint-VM -SnapshotName "Auto Checkpoint $((Get-Date -Format s))"
 
 #Looking at each VM on the hypervisor
